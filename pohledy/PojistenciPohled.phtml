@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="cs_cz">
+<head>
+    <meta charset="UTF-8">
+    <title>Přehled pojištěnců</title>
+    <!-- Napojení bootstrapu -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+.form-label{
+    margin: 1rem !important;
+    width: 5rem!important;
+}
+.th_width{
+    width:225rem !important;
+}
+.th_width1{
+    width:30rem !important;
+}
+.th_width2{
+    width:200rem !important;
+}
+th, td {
+    text-align: center!important;
+}
+.form-control{
+    border-color:black;
+    border-radius:0;
+}
+</style>
+</head>
+<body>
+<!-- Navigační lišta-->    
+<nav class="navbar navbar-expand-lg bg-info">
+  <div class="container-fluid">
+    <a class="navbar-brand" >Eliška Honsigová - Pojištěnci</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#o-aplikaci">O aplikaci</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Pojištěnci</a>
+            </li>
+    </div>
+  </div>
+</nav>
+<!--Tabulka s již vytvořenými pojištěnci-->
+        <div class="container">
+        <h1 class="mt-4">Přehled pojištěnců</h1>
+        <div class="mt-4"> 
+        <table class="table table-bordered border-secondary w-auto">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th class="th_width">Jméno a příjmení</th>
+                    <th class="th_width1">Věk</th>
+                    <th class="th_width2">Telefon</th>
+                </tr>
+            </thead>
+            <tbody>
+        <!-- Cyklus pro načtení dat z databáze--> 
+                <?php foreach($seznamPojistenych as $pojistenec) { ?>
+                <tr>
+                    <td> <?php echo($pojistenec ->GetID()); ?> </td>
+                    <td> <?php echo($pojistenec ->GetJmeno() . " " . $pojistenec ->GetPrijmeni()); ?> </td>
+                    <td> <?php echo($pojistenec ->GetVek()); ?> </td>
+                    <td> <?php echo($pojistenec ->GetTelefon()); ?> </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        </div>
+        <div class="mt-4">
+            <h2>Nový pojištěnec</h2></br>
+            <form method="POST" action="index.php">
+                    <div class="input-group mb-3">
+                        <label for="jmeno" class="form-label">Jméno:</label>
+                        <input type="text" name="jmeno" class="form-control" required>
+                        <label for="prijmeni" class="form-label">Příjmení:</label>
+                        <input type="text" name="prijmeni" class="form-control" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label for="vek" class="form-label">Věk:</label>
+                        <input type="number" min="1" max="100" name="vek" class="form-control" required>
+                        <label for="telefon" class="form-label">Telefon:</label>
+                        <input type="tel" pattern="[0-9]{9}" title="Zadejte platné telefonní číslo" name="telefon" class="form-control" required>
+                    </div>
+                </div>
+                <div class="btn-custom">
+                <button type="submit" class="btn btn-primary bg-info" style="color:black; border-color: transparent; font-size: 20px;">Vytvořit</button>
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <div ID="o-aplikaci" class="mt-4">
+                <h3> O aplikaci</h3>
+                <p>Tato aplikace vznikla v Červenci 2023 během mé účasti na rekvalifikačním kurzu Programátor WWW aplikací za pomoci PHP jazyka jako závěrečná práce. </br>
+                    Všechna výše použitá jména a telefonní čísla jsou smyšlená.
+                </p>
+            </div>
+        </div>
+            <!-- Napojení JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+</body>
+</html>
